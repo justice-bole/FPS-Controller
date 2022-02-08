@@ -35,6 +35,13 @@ public static class Models
      
     }
 
+    [Serializable]
+    public class CharacterStance
+    {
+        public float CameraHeight;
+        public CapsuleCollider StanceCollider;
+    }
+
     #endregion
 
 }
