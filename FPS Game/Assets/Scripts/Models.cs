@@ -24,7 +24,7 @@ public static class Models
         public bool ViewXInverted;
         public bool ViewYInverted;
 
-        [Header("Sprinting")]
+        [Header("Movement Settings")]
         public bool SprintingHold;
         public float MovementSmoothing;
 
@@ -40,6 +40,13 @@ public static class Models
         [Header("Jumping")]
         public float JumpingHeight;
         public float JumpingFalloff;
+        public float FallingSmoothing;
+
+        [Header("Speed Effectors")]
+        public float SpeedEffector = 1;
+        public float CrouchSpeedEffector;
+        public float ProneSpeedEffector;
+        public float FallingSpeedEffector;
      
     }
 

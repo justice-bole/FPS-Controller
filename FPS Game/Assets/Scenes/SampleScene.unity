@@ -640,6 +640,11 @@ MonoBehaviour:
     WalkingStrafeSpeed: 3
     JumpingHeight: 5
     JumpingFalloff: 0.4
+    FallingSmoothing: 0.4
+    SpeedEffector: 1
+    CrouchSpeedEffector: 0.6
+    ProneSpeedEffector: 0.2
+    FallingSpeedEffector: 0.4
   viewClampYMin: -70
   viewClampYMax: 80
   playerMask:
@@ -721,7 +726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215657820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.309, z: -5.465}
+  m_LocalPosition: {x: 0, y: -0.3, z: -5.465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2131336030}
