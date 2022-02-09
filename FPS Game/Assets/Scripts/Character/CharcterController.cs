@@ -7,7 +7,9 @@ public class CharcterController : MonoBehaviour
 {
     private CharacterController characterController;
     private DefaultInput defaultInput;
-    private Vector2 input_Movement;
+    
+    [HideInInspector]
+    public Vector2 input_Movement;
     [HideInInspector]
     public Vector2 input_View;
 
