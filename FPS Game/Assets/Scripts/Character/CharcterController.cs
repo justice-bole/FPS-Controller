@@ -7,19 +7,21 @@ public class CharcterController : MonoBehaviour
 {
     private CharacterController characterController;
     private DefaultInput defaultInput;
-    public Vector2 input_Movement;
-    public Vector2 input_View;
+    private Vector2 input_Movement;
+    private Vector2 input_View;
 
     private Vector3 newCameraRotation;
     private Vector3 newCharacterRotation;
 
     [Header("References")]
     public Transform cameraHolder;
+    public Transform feetTransform;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
     public float viewClampYMin = -70.0f;
     public float viewClampYMax = 80.0f;
+    public LayerMask playerMask;
 
     [Header("Gravity")]
     public float gravityAmount;
@@ -35,15 +37,14 @@ public class CharcterController : MonoBehaviour
     public CharacterStance playerStandStance;
     public CharacterStance playerCrouchStance;
     public CharacterStance playerProneStance;
+    private float stanceCheckErrorMargin = 0.05f;
 
     private float cameraHeight;
     private float cameraHeightVelocity;
 
-    private Vector3 stanceCapsuleCenter;
     private Vector3 stanceCapsuleCenterVelocity;
-
-    private float stanceCapsuleHeight;
     private float stanceCapsuleHeightVelocity;
+
 
     private void Awake()
     {
@@ -52,6 +53,8 @@ public class CharcterController : MonoBehaviour
         defaultInput.Character.Movement.performed += context => input_Movement = context.ReadValue<Vector2>();
         defaultInput.Character.View.performed += context => input_View = context.ReadValue<Vector2>();
         defaultInput.Character.Jump.performed += context => Jump();
+        defaultInput.Character.Crouch.performed += context => Crouch();
+        defaultInput.Character.Prone.performed += context => Prone();
 
         defaultInput.Enable();
 
@@ -139,6 +142,39 @@ public class CharcterController : MonoBehaviour
         playerGravity = 0;
     }
 
+    private void Crouch()
+    {
+        if(playerStance == PlayerStance.Crouch)
+        {
+            if(StanceCheck(playerStandStance.StanceCollider.height))
+            {
+                return;
+            }
 
+            playerStance = PlayerStance.Stand;
+            return;
+        }
+
+        if(StanceCheck(playerCrouchStance.StanceCollider.height))
+        {
+            return;
+        }
+
+        playerStance = PlayerStance.Crouch;
+    }
+
+    private void Prone()
+    {
+        playerStance = PlayerStance.Prone;
+    }
+
+
+    private bool StanceCheck(float stanceCheckHeight)
+    {
+        var start = new Vector3(feetTransform.position.x, feetTransform.position.y + characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
+        var end = new Vector3(feetTransform.position.x, feetTransform.position.y - characterController.radius - stanceCheckErrorMargin + stanceCheckHeight, feetTransform.position.z);
+
+        return Physics.CheckCapsule(start, end, characterController.radius, playerMask);
+    }
 }
 

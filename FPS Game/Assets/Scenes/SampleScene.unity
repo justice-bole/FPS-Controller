@@ -799,11 +799,11 @@ MonoBehaviour:
     WalkingForwardSpeed: 4
     WalkingBackwardSpeed: 2
     WalkingStrafeSpeed: 3
-    JumpingHeight: 6
-    JumpingFalloff: 1
+    JumpingHeight: 5
+    JumpingFalloff: 0.4
   viewClampYMin: -70
   viewClampYMax: 80
-  gravityAmount: 0.05
+  gravityAmount: 0.03
   gravityMin: -3
   jumpingForce: {x: 0, y: 0, z: 0}
   playerStance: 0

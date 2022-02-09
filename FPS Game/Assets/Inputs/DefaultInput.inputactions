@@ -31,6 +31,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "151db543-12b5-4291-b2df-b692fc0030ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Prone",
+                    "type": "PassThrough",
+                    "id": "2d5b89ad-5e48-4bff-8936-17d00b6e1e63",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -108,6 +126,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "282f7eaa-21e5-44aa-a374-a77da277730a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9651e93-b12e-4ff9-b4c5-879428e30ddd",
+                    "path": "<Keyboard>/x",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Prone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df164722-0448-407b-973a-aa1b0c07ef98",
+                    "path": "<Keyboard>/c",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Prone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
