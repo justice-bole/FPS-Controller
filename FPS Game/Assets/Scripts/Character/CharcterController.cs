@@ -47,6 +47,10 @@ public class CharcterController : MonoBehaviour
 
     private bool isSprinting;
 
+    private Vector3 newMovementSpeed;
+    private Vector3 newMovementSpeedVelocity;
+
+
 
     private void Awake()
     {
@@ -58,6 +62,7 @@ public class CharcterController : MonoBehaviour
         defaultInput.Character.Crouch.performed += context => Crouch();
         defaultInput.Character.Prone.performed += context => Prone();
         defaultInput.Character.Sprint.performed += context => ToggleSprint();
+        defaultInput.Character.SprintReleased.performed += context => StopSprint();
 
         defaultInput.Enable();
 
@@ -104,8 +109,8 @@ public class CharcterController : MonoBehaviour
             horizontalSpeed = playerSettings.RunningStrafeSpeed;
         }
 
-        var newMovementSpeed = new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime);
-        newMovementSpeed = transform.TransformDirection(newMovementSpeed);
+        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime), ref newMovementSpeedVelocity, playerSettings.MovementSmoothing);
+        var movementSpeed = transform.TransformDirection(newMovementSpeed);
 
         if(playerGravity > gravityMin)
         {
@@ -117,10 +122,10 @@ public class CharcterController : MonoBehaviour
             playerGravity = -0.1f;
         }
 
-        newMovementSpeed.y += playerGravity;
-        newMovementSpeed += jumpingForce * Time.deltaTime;
+        movementSpeed.y += playerGravity;
+        movementSpeed += jumpingForce * Time.deltaTime;
 
-        characterController.Move(newMovementSpeed);
+        characterController.Move(movementSpeed);
     }
 
     private void CalculateJump()
@@ -206,6 +211,14 @@ public class CharcterController : MonoBehaviour
         }
 
         isSprinting = !isSprinting;
+    }
+
+    private void StopSprint()
+    {
+        if(playerSettings.SprintingHold)
+        {
+            isSprinting = !isSprinting;
+        }
     }
 
 }
