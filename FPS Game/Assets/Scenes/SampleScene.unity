@@ -780,10 +780,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    SwayAmount: 5
+    SwayAmount: 6
     SwayYInverted: 0
     SwayXInverted: 0
-    SwaySmoothing: 1
+    SwaySmoothing: 0.1
+    SwayResetSmoothing: 0.1
+    SwayClampX: 4
+    SwayClampY: 4
 --- !u!4 &1385698464
 Transform:
   m_ObjectHideFlags: 0
@@ -791,9 +794,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385698462}
-  m_LocalRotation: {x: -0, y: -0.7071069, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0.41, y: -0.377, z: 0.753}
-  m_LocalScale: {x: 1.0243065, y: 0.25788215, z: 0.13592944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.237, y: -0.26, z: 0.586}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2124688349}
   m_Father: {fileID: 2131336030}
@@ -1374,13 +1377,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124688348}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.197, y: 0.41491818, z: 0}
-  m_LocalScale: {x: 1.2406, y: 1.1314, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1, y: 0.1, z: 0.06}
+  m_LocalScale: {x: 0.07510103, y: -0.24489036, z: 1}
   m_Children: []
   m_Father: {fileID: 1385698464}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2124688350
 BoxCollider:
   m_ObjectHideFlags: 0
