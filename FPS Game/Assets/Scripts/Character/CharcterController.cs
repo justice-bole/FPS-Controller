@@ -56,7 +56,7 @@ public class CharcterController : MonoBehaviour
     [Header("Weapon")]
     public WeaponController currentWeapon;
 
-
+    public float weaponAnimationSpeed;
 
     private void Awake()
     {
@@ -135,6 +135,13 @@ public class CharcterController : MonoBehaviour
         else
         {
             playerSettings.SpeedEffector = 1;
+        }
+
+        weaponAnimationSpeed = characterController.velocity.magnitude / (playerSettings.WalkingForwardSpeed * playerSettings.SpeedEffector);
+
+        if (weaponAnimationSpeed > 1)
+        {
+            weaponAnimationSpeed = 1;
         }
 
         verticalSpeed *= playerSettings.SpeedEffector;

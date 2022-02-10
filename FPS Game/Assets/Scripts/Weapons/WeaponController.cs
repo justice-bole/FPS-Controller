@@ -7,6 +7,9 @@ public class WeaponController : MonoBehaviour
 {
     private CharcterController characterController;
 
+    [Header("References")]
+    public Animator weaponAnimator;
+
     [Header("Settings")]
     public WeaponSettingsModel settings;
 
@@ -38,6 +41,8 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
         if(!isInitialized) return;
+
+        weaponAnimator.speed = characterController.weaponAnimationSpeed;
 
         targetWeaponRotation.y += settings.SwayAmount * (settings.SwayXInverted ? -characterController.input_View.x : characterController.input_View.x) * Time.deltaTime;
         targetWeaponRotation.x += settings.SwayAmount * (settings.SwayYInverted ? characterController.input_View.y : -characterController.input_View.y) * Time.deltaTime;
