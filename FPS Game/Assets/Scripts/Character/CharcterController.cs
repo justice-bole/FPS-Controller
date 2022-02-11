@@ -78,6 +78,9 @@ public class CharcterController : MonoBehaviour
         defaultInput.Character.Sprint.performed += context => ToggleSprint();
         defaultInput.Character.SprintReleased.performed += context => StopSprint();
 
+        defaultInput.Weapon.Fire2Pressed.performed += context => AimingInPressed();
+        defaultInput.Weapon.Fire2Released.performed += context => AimingInReleased();
+
         defaultInput.Enable();
 
         newCameraRotation = cameraHolder.localRotation.eulerAngles;
@@ -102,6 +105,7 @@ public class CharcterController : MonoBehaviour
         CalculateMovement();
         CalculateJump();
         CalculateStance();
+        CalculateAimingIn();
     }
 
     private void AimingInPressed()
@@ -112,6 +116,13 @@ public class CharcterController : MonoBehaviour
     private void AimingInReleased()
     {
         isAimingIn = false;
+    }
+
+    private void CalculateAimingIn()
+    {
+        if (!currentWeapon) return;
+
+        currentWeapon.isAimingIn = isAimingIn;
     }
 
     private void SetIsGrounded()
