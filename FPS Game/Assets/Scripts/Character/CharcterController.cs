@@ -25,6 +25,7 @@ public class CharcterController : MonoBehaviour
     public float viewClampYMin = -70.0f;
     public float viewClampYMax = 80.0f;
     public LayerMask playerMask;
+    public LayerMask groundMask;
 
     [Header("Gravity")]
     public float gravityAmount;
@@ -56,8 +57,11 @@ public class CharcterController : MonoBehaviour
 
     [Header("Weapon")]
     public WeaponController currentWeapon;
-
     public float weaponAnimationSpeed;
+    [HideInInspector]
+    public bool isGrounded;
+    [HideInInspector]
+    public bool isFalling;
 
     private void Awake()
     {
@@ -88,10 +92,23 @@ public class CharcterController : MonoBehaviour
 
     private void Update()
     {
+        SetIsGrounded();
+        SetIsFalling();
+
         CalculateView();
         CalculateMovement();
         CalculateJump();
         CalculateStance();
+    }
+
+    private void SetIsGrounded()
+    {
+        isGrounded = Physics.CheckSphere(feetTransform.position, playerSettings.isGroundedRadius, groundMask);
+    }
+
+    private void SetIsFalling()
+    {
+        isFalling = (!isGrounded && characterController.velocity.magnitude > playerSettings.isFallingSpeed);
     }
 
     private void CalculateView()
@@ -121,7 +138,7 @@ public class CharcterController : MonoBehaviour
             horizontalSpeed = playerSettings.RunningStrafeSpeed;
         }
 
-        if(!characterController.isGrounded)
+        if(!isGrounded)
         {
             playerSettings.SpeedEffector = playerSettings.FallingSpeedEffector;
         }
@@ -148,7 +165,7 @@ public class CharcterController : MonoBehaviour
         verticalSpeed *= playerSettings.SpeedEffector;
         horizontalSpeed *= playerSettings.SpeedEffector;
 
-        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime), ref newMovementSpeedVelocity, characterController.isGrounded ? playerSettings.MovementSmoothing : playerSettings.FallingSmoothing);
+        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime), ref newMovementSpeedVelocity, isGrounded ? playerSettings.MovementSmoothing : playerSettings.FallingSmoothing);
         var movementSpeed = transform.TransformDirection(newMovementSpeed);
 
         if(playerGravity > gravityMin)
@@ -156,7 +173,7 @@ public class CharcterController : MonoBehaviour
             playerGravity -= gravityAmount * Time.deltaTime;
         }
 
-        if(playerGravity < -0.1 && characterController.isGrounded)
+        if(playerGravity < -0.1 && isGrounded)
         {
             playerGravity = -0.1f;
         }
@@ -194,7 +211,7 @@ public class CharcterController : MonoBehaviour
 
     private void Jump()
     {
-        if(!characterController.isGrounded || playerStance == PlayerStance.Prone) return;
+        if(!isGrounded || playerStance == PlayerStance.Prone) return;
         if (playerStance == PlayerStance.Crouch)
         {
             if(StanceCheck(playerStandStance.StanceCollider.height))
@@ -207,6 +224,7 @@ public class CharcterController : MonoBehaviour
 
         jumpingForce = Vector3.up * playerSettings.JumpingHeight;
         playerGravity = 0;
+        currentWeapon.TriggerJump();
     }
 
     private void Crouch()
@@ -261,6 +279,11 @@ public class CharcterController : MonoBehaviour
         {
             isSprinting = !isSprinting;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(feetTransform.position, playerSettings.isGroundedRadius);
     }
 
 }
