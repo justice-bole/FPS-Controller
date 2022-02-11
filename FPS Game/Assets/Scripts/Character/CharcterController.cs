@@ -63,6 +63,9 @@ public class CharcterController : MonoBehaviour
     [HideInInspector]
     public bool isFalling;
 
+    [Header("Aiming In")]
+    public bool isAimingIn;
+
     private void Awake()
     {
         defaultInput = new DefaultInput();
@@ -99,6 +102,16 @@ public class CharcterController : MonoBehaviour
         CalculateMovement();
         CalculateJump();
         CalculateStance();
+    }
+
+    private void AimingInPressed()
+    {
+        isAimingIn = true;
+    }
+
+    private void AimingInReleased()
+    {
+        isAimingIn = false;
     }
 
     private void SetIsGrounded()

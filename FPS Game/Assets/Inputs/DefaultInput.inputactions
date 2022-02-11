@@ -203,6 +203,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Weapon",
+            "id": "99df831b-277d-49c5-8f86-d598c808204b",
+            "actions": [
+                {
+                    "name": "Fire2Pressed",
+                    "type": "Button",
+                    "id": "82ece5e7-9707-4276-bb89-9b77e5bc6d53",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire2Released",
+                    "type": "Button",
+                    "id": "71eb6c44-3401-4865-8844-75e51b99f82e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dfc875b9-08e0-4eda-bdc7-882f890e6a92",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire2Pressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09cd4deb-5376-4715-aedd-02c9b5460661",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire2Released",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
