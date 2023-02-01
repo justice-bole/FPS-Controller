@@ -1,4 +1,4 @@
-# FPS Charatcer Controller for Unity
+# FPS Character Controller for Unity
 
 This is a functional FPS character controller for Unity. You can import this controller into one of your Unity projects and have a ready to use FPS 
 character controller straight away! This controller can crawl, crouch, walk, run, sprint, jump, and aim. Each state, like crawling or crouching, 
